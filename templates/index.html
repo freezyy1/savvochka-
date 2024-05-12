@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Магазин цветов</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    #header {
+      background-color: #343a40;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    #footer {
+      background-color: #343a40;
+      color: #fff;
+      padding: 10px 0;
+      text-align: center;
+      position: sticky;
+      width: 100%;
+    }
+
+    .custom-table {
+      width: 100%;
+    }
+
+    .custom-table th {
+      background-color: #f2f2f2;
+    }
+
+    .custom-table th,
+    .custom-table td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    .custom-table tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .custom-table tr:hover {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+
+<header id="header">
+  <h1>Магазин цветов</h1>
+</header>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Цветы</h2>
+      <table class="table custom-table" id="flowersTable">
+        <thead>
+          <tr>
+            <th>Название</th>
+            <th>Вид</th>
+            <th>Страна</th>
+            <th>Сезон цветения</th>
+            <th>Сорт</th>
+            <th>Цена</th>
+          </tr>
+        </thead>
+        <tbody id="flowersList">
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <h2>Поставщики</h2>
+      <table class="table custom-table" id="suppliersTable">
+        <thead>
+          <tr>
+            <th>ФИО</th>
+            <th>Вид хозяйства</th>
+            <th>Адрес</th>
+          </tr>
+        </thead>
+        <tbody id="suppliersList">
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-md-6">
+      <h2>Продавцы</h2>
+      <table class="table custom-table" id="sellersTable">
+        <thead>
+          <tr>
+            <th>ФИО</th>
+            <th>Адрес</th>
+          </tr>
+        </thead>
+        <tbody id="sellersList">
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-md-12">
+      <h2>Фильтры</h2>
+      <div class="form-group">
+        <label for="seasonSelect">Выберите сезон цветения:</label>
+        <select class="form-control" id="seasonSelect">
+          <option value="Spring">Весна</option>
+          <option value="Summer">Лето</option>
+          <option value="Autumn">Осень</option>
+          <option value="Winter">Зима</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="countryInput">Введите страну:</label>
+        <input type="text" class="form-control" id="countryInput">
+      </div>
+      <div class="mb-4">
+          <button type="button" class="btn btn-primary" onclick="getFlowersBySeason()">Фильтр по сезону</button>
+          <button type="button" class="btn btn-primary" onclick="getFlowersByCountry()">Фильтр по стране</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer id="footer">
+  <p>© 2024 Магазин цветов. Все права защищены.</p>
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="static/script.js"></script>
+</body>
+</html>
