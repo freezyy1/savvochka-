@@ -1,6 +1,6 @@
 $(document).ready(function() {
   $.ajax({
-    url: '/get_flowers', // Маршрут Flask для получения списка цветов
+    url: '/get_flowers',
     method: 'GET',
     success: function(response) {
       displayFlowers(response);
@@ -10,7 +10,6 @@ $(document).ready(function() {
     }
   });
 
-  // Функция для отображения списка цветов
   function displayFlowers(flowers) {
     var flowersList = $('#flowersList');
     flowersList.empty();
@@ -27,7 +26,7 @@ $(document).ready(function() {
   }
 
   $.ajax({
-    url: '/get_suppliers', // Маршрут Flask для получения списка поставщиков
+    url: '/get_suppliers',
     method: 'GET',
     success: function(response) {
       displaySuppliers(response);
@@ -50,7 +49,7 @@ $(document).ready(function() {
   }
 
   $.ajax({
-    url: '/get_sellers', // Маршрут Flask для получения списка продавцов
+    url: '/get_sellers',
     method: 'GET',
     success: function(response) {
       displaySellers(response);
@@ -71,10 +70,30 @@ $(document).ready(function() {
     });
   }
 
+  function addSeller() {
+    var name = $('#sellerNameInput').val();
+    var address = $('#sellerAddressInput').val();
+
+    $.ajax({
+      url: '/add_seller',
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({name: name, address: address}),
+      success: function(response) {
+        displaySellers(response);
+        $('#sellerNameInput').val('');
+        $('#sellerAddressInput').val('');
+      },
+      error: function(xhr, status, error) {
+        console.error(xhr.responseText);
+      }
+    });
+  }
+
   function getFlowersBySeason() {
     var season = $('#seasonSelect').val();
     $.ajax({
-      url: '/filter_by_season/' + season, // Маршрут Flask для фильтрации цветов по сезону
+      url: '/filter_by_season/' + season,
       method: 'GET',
       success: function(response) {
         displayFlowers(response);
@@ -88,7 +107,7 @@ $(document).ready(function() {
   function getFlowersByCountry() {
     var country = $('#countryInput').val();
     $.ajax({
-      url: '/filter_by_country/' + country, // Маршрут Flask для фильтрации цветов по стране
+      url: '/filter_by_country/' + country,
       method: 'GET',
       success: function(response) {
         displayFlowers(response);

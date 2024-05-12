@@ -1,25 +1,19 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
+import json
 
 app = Flask(__name__)
 
-# Тест
-flowers = [
-    {"name": "Роза", "type": "Садовый", "country": "Голландия", "season": "Лето", "sort": "Красная", "price": "$10"},
-    {"name": "Тюльпан", "type": "Садовый", "country": "Голландия", "season": "Весна", "sort": "Жёлтый", "price": "$8"},
-    {"name": "Орхидея", "type": "Комнатный", "country": "Таиланд", "season": "Весь год", "sort": "Фиолетовая", "price": "$15"}
-]
+def load_data(filename):
+    with open(filename, 'r', encoding='utf-8') as file:
+        return json.load(file)
 
-# Тест
-suppliers = [
-    {"name": "Иванов Иван Иванович", "type": "Оранжерея", "address": "ул. Оранжерейная, 10"},
-    {"name": "Петров Петр Петрович", "type": "Тепличное хозяйство", "address": "пр. Тепличный, 5"}
-]
+def save_data(data, filename):
+    with open(filename, 'w', encoding='utf-8') as file:
+        json.dump(data, file, ensure_ascii=False, indent=4)
 
-# Тест
-sellers = [
-    {"name": "Сидоров Сидор Сидорович", "address": "ул. Продавцов, 1"},
-    {"name": "Николаев Николай Николаевич", "address": "пр. Продаж, 20"}
-]
+flowers = load_data('flowers.json')
+suppliers = load_data('suppliers.json')
+sellers = load_data('sellers.json')
 
 @app.route('/')
 def index():
@@ -46,6 +40,13 @@ def filter_by_season(season):
 def filter_by_country(country):
     filtered_flowers = [flower for flower in flowers if flower['country'] == country]
     return jsonify(filtered_flowers)
+
+@app.route('/add_seller', methods=['POST'])
+def add_seller():
+    data = request.json
+    sellers.append(data)
+    save_data(sellers, 'sellers.json')
+    return jsonify(sellers)
 
 if __name__ == '__main__':
     app.run(debug=True)
